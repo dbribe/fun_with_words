@@ -4,899 +4,127 @@
     <link rel="stylesheet" href="proiect.css"></link>
 </head>
 <body>
-    <img src="proiect.jpeg" style="width: 100%; height: 100%; position:fixed; z-index: -1;">
-    <div id="fun-with-words" style="max-width: 700px;">
-        <div id="game-parameters-block" class="pull-left hidden">
-            <p>
-                <h3>
-                    Number of users:
-                </h3>
-                <div id="max-users-warning" class="warning-text hidden">
-                    Number of users must be between 1 and 12
-                </div>
-                <input id="max-users-input" type="number" value="6" min="1" max="12">
-            </p>
-            <p>
-                <h3>
-                    Number of words per user:
-                </h3>
-                <div id="max-words-warning" class="warning-text hidden">
-                    Number of words per user must be between 1 and 30
-                </div>
-                <input id="max-words-input" type="number" value="8" min="1" max="30">
-            </p>
-            <p>
-                <h3>
-                    Time per round (in seconds):
-                </h3>
-                <div id="max-time-warning" class="warning-text hidden">
-                    Time per round must be between 5 and 300
-                </div>
-                <input id="max-time-input" type="number" value="30" min="5" max="300">
-            </p>
-            <p>
-                <h3>
-                    Skip cooldown (in miliseconds):
-                </h3>
-                <div id="skip-time-warning" class="warning-text hidden">
-                    Skip time must be between 0 and 3500
-                </div>
-                <input id="skip-time-input" type="number" value="3500" min="0" max="10000">
-            </p>
-            <button id="apply-button" class="btn">Apply</button>
+<img src="proiect.jpeg" style="width: 100%; height: 100%; position:fixed; z-index: -1;">
+<div id="fun-with-words" style="max-width: 700px;">
+    <div id="game-parameters-block" class="pull-left hidden">
+        <p>
+        <h3>
+            Number of users:
+        </h3>
+        <div id="max-users-warning" class="warning-text hidden">
+            Number of users must be between 1 and 12
         </div>
-        <div id="words-left-block" class="text-center hidden"></div>
-        <div id="add-words-block" class="hidden">
-            <div id="list-done-warning" class="warning-text hidden text-center">
-                The game can't be started until all users have submitted their lists
-            </div>
-            <div id="start-game-warning" class="warning-text hidden text-center">
-                Since all users have inserted their list, press "Start Game"
-            </div>
-            <p class="text-center">
-                <button id="list-done-button" class="btn">Start Game</button>
-            </p>
-            <div class="pull-left">
-                <h4>User:</h4>
-                <div id="user-name-warning" class="warning-text hidden">
-                    Username can't be blank
-                </div>
-                <input spellcheck="false" id="user-name-input">
-                <h4>Insert words here:</h4>
-                <div id="words-count-warning" class="warning-text hidden">
-                    You need to insert 8 words
-                </div>
-                <textarea spellcheck="false" style="height:300px" id="add-words-input"></textarea>
-                <div>
-                    <button id="add-words-button" class="btn">Add Words</button>
-                </div>
-            </div>
-            <div id="confirm-block" class="pull-left hidden" style="margin-left: 15px">
-                <h4>Are you sure you want to send these words?</h4>
-                <div id="confirm-list" style="margin-left: 30px">
-                </div>
-                <div>
-                    <button id="confirm-button" class="btn">Yes</button>
-                    <button id="cancel-button" class="btn">No</button>
-                </div>
-            </div>
+        <input id="max-users-input" type="number" value="6" min="1" max="12">
+        </p>
+        <p>
+        <h3>
+            Number of words per user:
+        </h3>
+        <div id="max-words-warning" class="warning-text hidden">
+            Number of words per user must be between 1 and 30
         </div>
-        <div id="team-names-block" class="text-center hidden">
-            <div>
-                <h4>Team 1 name</h4>
-                <input spellcheck="false" id="team-1-input">
-                <h4>Team 2 name</h4>
-                <input spellcheck="false" id="team-2-input">
-            </div>
-            <button id="create-teams-button" class="btn" style="margin-top:10px">Create Teams</button>
+        <input id="max-words-input" type="number" value="8" min="1" max="30">
+        </p>
+        <p>
+        <h3>
+            Time per round (in seconds):
+        </h3>
+        <div id="max-time-warning" class="warning-text hidden">
+            Time per round must be between 5 and 300
         </div>
-        <div id="current-word-block" class="text-center hidden">
-            <h3 >Your word is:</h3>
-            <h1 id="current-word"></h1>
-            <button id = "guess-button" class="btn">Guess</button>
-            <button id = "skip-button" class="btn">Skip</button>
-            <button id = "undo-button" class="btn">Undo</button>
+        <input id="max-time-input" type="number" value="30" min="5" max="300">
+        </p>
+        <p>
+        <h3>
+            Skip cooldown (in miliseconds):
+        </h3>
+        <div id="skip-time-warning" class="warning-text hidden">
+            Skip time must be between 0 and 3500
         </div>
-        <div id="timer-block" class="text-center hidden" style="padding-top:30px">
-            <h4>Time left</h4>
-            <h3 id="current-time"></h3>
-        </div>
-        <div id = "guessed-words-block" class="text-center hidden">
-            <h2>Guessed words in previous round</h2>
-            <div id="guessed-words-list"></div>
-        </div>
-        <div id="start-game-block" class="text-center hidden">
-            <button id="start-game-button" class="btn">Start Round</button>
-        </div>
-        <div id="winner-team-block" class="text-center hidden">
-            <h1 id="winner-team">Team 1</h1>
-        </div>
-        <div id="teams-score-block" class="text-center hidden">
-            <div class="pull-left">
-                <h2 id="team-1-name">Team A</h2>
-                <h2 id="team-1-points">20</h2>
-            </div>
-            <div class="pull-right">
-                <h2 id="team-2-name">Team B</h2>
-                <h2 id="team-2-points">21</h2>
-            </div>
-        </div>
-        <div id="all-words-block" class="text-center hidden" style="margin-top: 200px">
-            <div id="all-words"></div>
-        </div>
-        <audio id="sound-alert" src="http://www.qwizx.com/gssfx/usa/tpirding.wav"></audio>
+        <input id="skip-time-input" type="number" value="3500" min="0" max="10000">
+        </p>
+        <button id="apply-button" class="btn">Apply</button>
     </div>
+    <div id="words-left-block" class="text-center hidden"></div>
+    <div id="add-words-block" class="hidden">
+        <div id="list-done-warning" class="warning-text hidden text-center">
+            The game can't be started until all users have submitted their lists
+        </div>
+        <div id="start-game-warning" class="warning-text hidden text-center">
+            Since all users have inserted their list, press "Start Game"
+        </div>
+        <p class="text-center">
+            <button id="list-done-button" class="btn">Start Game</button>
+        </p>
+        <div class="pull-left">
+            <h4>User:</h4>
+            <div id="user-name-warning" class="warning-text hidden">
+                Username can't be blank
+            </div>
+            <input spellcheck="false" id="user-name-input">
+            <h4>Insert words here:</h4>
+            <div id="words-count-warning" class="warning-text hidden">
+                You need to insert 8 words
+            </div>
+            <textarea spellcheck="false" style="height:300px" id="add-words-input"></textarea>
+            <div>
+                <button id="add-words-button" class="btn">Add Words</button>
+            </div>
+        </div>
+        <div id="confirm-block" class="pull-left hidden" style="margin-left: 15px">
+            <h4>Are you sure you want to send these words?</h4>
+            <div id="confirm-list" style="margin-left: 30px">
+            </div>
+            <div>
+                <button id="confirm-button" class="btn">Yes</button>
+                <button id="cancel-button" class="btn">No</button>
+            </div>
+        </div>
+    </div>
+    <div id="team-names-block" class="text-center hidden">
+        <div>
+            <h4>Team 1 name</h4>
+            <input spellcheck="false" id="team-1-input">
+            <h4>Team 2 name</h4>
+            <input spellcheck="false" id="team-2-input">
+        </div>
+        <button id="create-teams-button" class="btn" style="margin-top:10px">Create Teams</button>
+    </div>
+    <div id="current-word-block" class="text-center hidden">
+        <h3>Your word is:</h3>
+        <h1 id="current-word"></h1>
+        <button id="guess-button" class="btn">Guess</button>
+        <button id="skip-button" class="btn">Skip</button>
+        <button id="undo-button" class="btn">Undo</button>
+    </div>
+    <div id="timer-block" class="text-center hidden" style="padding-top:30px">
+        <h4>Time left</h4>
+        <h3 id="current-time"></h3>
+    </div>
+    <div id="guessed-words-block" class="text-center hidden">
+        <h2>Guessed words in previous round</h2>
+        <div id="guessed-words-list"></div>
+    </div>
+    <div id="start-game-block" class="text-center hidden">
+        <button id="start-game-button" class="btn">Start Round</button>
+    </div>
+    <div id="winner-team-block" class="text-center hidden">
+        <h1 id="winner-team">Team 1</h1>
+    </div>
+    <div id="teams-score-block" class="text-center hidden">
+        <div class="pull-left">
+            <h2 id="team-1-name">Team A</h2>
+            <h2 id="team-1-points">20</h2>
+        </div>
+        <div class="pull-right">
+            <h2 id="team-2-name">Team B</h2>
+            <h2 id="team-2-points">21</h2>
+        </div>
+    </div>
+    <div id="all-words-block" class="text-center hidden" style="margin-top: 200px">
+        <div id="all-words"></div>
+    </div>
+    <audio id="sound-alert" src="http://www.qwizx.com/gssfx/usa/tpirding.wav"></audio>
+</div>
 </body>
-<script>
- var LAST_WORD_FINISH_DELAY = 5000;
- var SKIP_TIME;
- var MAX_TIME;
- var MAX_WORDS;
- var MAX_USERS;
- var START_AREA_INITIATED = false;
-
- function inRange(value, minValue, maxValue) {
-     return (value >= minValue && value <= maxValue);
- }
-
- function getElementById(name) {
-     return document.getElementById(name);
- }
-
- var obj = {};
- obj.initDOM = function () {
-     obj.gameParametersBlock = getElementById("game-parameters-block");
-     obj.maxUsersWarning     = getElementById("max-users-warning");
-     obj.maxWordsWarning     = getElementById("max-words-warning");
-     obj.maxTimeWarning      = getElementById("max-time-warning");
-     obj.skipTimeWarning     = getElementById("skip-time-warning");
-     obj.maxUsersInput       = getElementById("max-users-input");
-     obj.maxWordsInput       = getElementById("max-words-input");
-     obj.maxTimeInput        = getElementById("max-time-input");
-     obj.skipTimeInput       = getElementById("skip-time-input");
-     obj.applyButton         = getElementById("apply-button");
-
-     obj.addWordsBlock       = getElementById("add-words-block");
-     obj.addWordsInput       = getElementById("add-words-input");
-     obj.addWordsButton      = getElementById("add-words-button");
-     obj.userNameInput       = getElementById("user-name-input");
-     obj.listDoneButton      = getElementById("list-done-button");
-     obj.listDoneWarning     = getElementById("list-done-warning");
-     obj.wordsCountWarning   = getElementById("words-count-warning");
-     obj.userNameWarning     = getElementById("user-name-warning");
-     obj.startGameWarning    = getElementById("start-game-warning");
-
-     obj.confirmBlock        = getElementById("confirm-block");
-     obj.confirmList         = getElementById("confirm-list");
-     obj.confirmButton       = getElementById("confirm-button");
-     obj.cancelButton        = getElementById("cancel-button");
-
-     obj.teamNamesBlock      = getElementById("team-names-block");
-     obj.team1Input          = getElementById("team-1-input");
-     obj.team2Input          = getElementById("team-2-input");
-     obj.createTeamsButton   = getElementById("create-teams-button");
-
-     obj.wordsLeftBlock      = getElementById("words-left-block");
-
-     obj.startGameBlock      = getElementById("start-game-block");
-     obj.startGameButton     = getElementById("start-game-button");
-
-     obj.teamsScoreBlock     = getElementById("teams-score-block");
-     obj.team1Points         = getElementById("team-1-points");
-     obj.team2Points         = getElementById("team-2-points");
-     obj.team1Name           = getElementById("team-1-name");
-     obj.team2Name           = getElementById("team-2-name");
-
-     obj.guessedWordsBlock   = getElementById("guessed-words-block");
-     obj.guessedWordsList    = getElementById("guessed-words-list");
-
-     obj.currentWordBlock    = getElementById("current-word-block");
-     obj.currentWord         = getElementById("current-word");
-     obj.guessButton         = getElementById("guess-button");
-     obj.skipButton          = getElementById("skip-button");
-     obj.undoButton          = getElementById("undo-button");
-
-     obj.timerBlock          = getElementById("timer-block");
-     obj.currentTime         = getElementById("current-time");
-
-     obj.winnerTeamBlock     = getElementById("winner-team-block");
-     obj.winnerTeam          = getElementById("winner-team");
-
-     obj.allWordsBlock       = getElementById("all-words-block");
-     obj.allWords            = getElementById("all-words");
-
-     obj.soundAlert          = getElementById("sound-alert");
- };
-
- obj.initLogic = function () {
-     obj.words = [];
-     obj.roundGuessedWords = [];
-     obj.listOfWords = [];
-     obj.team = 2;
-     obj.team1Score = 0;
-     obj.team2Score = 0;
- };
-
- obj.init = function () {
-     obj.initLogic();
-     obj.initDOM();
- };
-
- obj.gameParameters = function () {
-     function init() {
-         initDOM();
-         initListeners();
-     }
-
-     function initDOM() {
-         obj.gameParametersBlock.classList.remove("hidden");
-     }
-
-     function initListeners() {
-         obj.applyButton.addEventListener("click", function () {
-             var valid = true;
-             MAX_USERS = parseInt(obj.maxUsersInput.value);
-             SKIP_TIME = parseInt(obj.skipTimeInput.value);
-             MAX_TIME = parseInt(obj.maxTimeInput.value);
-             MAX_WORDS = parseInt(obj.maxWordsInput.value);
-
-             if (!inRange(MAX_USERS, 1, 12)) {
-                 valid = false;
-                 obj.maxUsersWarning.classList.remove("hidden");
-             } else {
-                 obj.maxUsersWarning.classList.add("hidden");
-             }
-
-             if (!inRange(SKIP_TIME, 0, 10000)) {
-                 valid = false;
-                 obj.skipTimeWarning.classList.remove("hidden");
-             } else {
-                 obj.skipTimeWarning.classList.add("hidden");
-             }
-
-             if (!inRange(MAX_TIME, 5, 300)) {
-                 valid = false;
-                 obj.maxTimeWarning.classList.remove("hidden");
-             } else {
-                 obj.maxTimeWarning.classList.add("hidden");
-             }
-
-             if (!inRange(MAX_WORDS, 1, 30)) {
-                 valid = false;
-                 obj.maxWordsWarning.classList.remove("hidden");
-             } else {
-                 obj.maxWordsWarning.classList.add("hidden");
-             }
-
-             if (valid) {
-                 proceed();
-             }
-         })
-     }
-
-     function proceed() {
-         obj.wordsCountWarning.innerHTML = "You need to insert " + MAX_WORDS + " words";
-         obj.gameParametersBlock.classList.add("hidden");
-         obj.addWords();
-     }
-
-     init();
- };
-
- obj.addWords = function () {
-     function init() {
-         initDOM();
-         initListeners();
-     }
-
-     function initDOM() {
-         obj.addWordsBlock.classList.remove("hidden");
-         obj.wordsLeftBlock.classList.remove("hidden");
-         updateWords();
-     }
-
-     function initListeners() {
-         var wordsList;
-         var countOfUsers = 0;
-
-         obj.listDoneButton.addEventListener("click", function () {
-             if (countOfUsers !== MAX_USERS) {
-                 obj.listDoneWarning.classList.remove("hidden");
-                 return;
-             } else {
-                 obj.listDoneWarning.classList.add("hidden");
-             }
-             proceed();
-         });
-
-         obj.addWordsButton.addEventListener("click", function () {
-             var wordsCount = 0;
-             var confirmString = "";
-             var valid = true;
-
-             if (countOfUsers === MAX_USERS) {
-                 obj.startGameWarning.classList.remove("hidden");
-                 return;
-             } else {
-                 obj.startGameWarning.classList.add("hidden");
-             }
-
-             wordsList = [];
-             obj.addWordsInput.value.split(/\s+/).forEach(function (word) {
-                 word = word.toLowerCase().trim();
-                 if (word !== "") {
-                     wordsList.push(word);
-                     wordsCount += 1;
-                 }
-             });
-
-             if (wordsCount !== MAX_WORDS) {
-                 obj.wordsCountWarning.classList.remove("hidden");
-                 valid = false;
-             } else {
-                 obj.wordsCountWarning.classList.add("hidden");
-             }
-
-             if (obj.userNameInput.value.trim() === "") {
-                 obj.userNameWarning.classList.remove("hidden");
-                 valid = false;
-             } else {
-                 obj.userNameWarning.classList.add("hidden");
-             }
-
-             if (!valid) {
-                 return;
-             }
-
-             wordsList.forEach(function (word) {
-                 confirmString += "<h4> " + word + " </h4>";
-             });
-             obj.confirmList.innerHTML = confirmString;
-             obj.confirmBlock.classList.remove("hidden");
-         });
-
-         obj.confirmButton.addEventListener("click", function () {
-             wordsList.forEach(function (word) {
-                 addWord(word, obj.userNameInput.value.trim());
-             });
-             obj.addWordsInput.value = "";
-             obj.userNameInput.value = "";
-             obj.confirmBlock.classList.add("hidden");
-             updateWords();
-             countOfUsers += 1;
-         });
-
-         obj.cancelButton.addEventListener("click", function () {
-             obj.confirmBlock.classList.add("hidden");
-         });
-     }
-
-     function proceed() {
-         obj.addWordsBlock.classList.add("hidden");
-         obj.wordsLeftBlock.classList.add("hidden");
-         obj.createTeams();
-     }
-
-     function addWord(word, user) {
-         obj.words.push({
-             word: word.toLowerCase(),
-             user: user,
-             time: 0
-         });
-     }
-
-     function updateWords() {
-         obj.wordsLeftBlock.innerHTML = "<h3>There are " + obj.words.length + " words inserted so far. </h3>";
-     }
-
-     init();
- };
-
- obj.createTeams = function () {
-     function init() {
-         initDOM();
-         initListeners();
-     }
-
-     function initDOM() {
-         obj.teamNamesBlock.classList.remove("hidden");
-     }
-
-     function initListeners() {
-         obj.createTeamsButton.addEventListener("click", function () {
-             obj.team1Name.innerHTML = obj.team1Input.value;
-             obj.team2Name.innerHTML = obj.team2Input.value;
-             obj.updateScore();
-             proceed();
-         });
-     }
-
-     function proceed() {
-         obj.teamNamesBlock.classList.add("hidden");
-         obj.startArea();
-     }
-
-     init();
- };
-
- obj.updateScore = function () {
-     obj.team1Points.innerHTML = obj.team1Score;
-     obj.team2Points.innerHTML = obj.team2Score;
-     obj.wordsLeftBlock.innerHTML = "<h3>There are " + obj.words.length + " words left. </h3>";
- };
-
- obj.startArea = function () {
-     if (!obj.words.length) {
-         obj.gameOver();
-         return;
-     }
-
-     function init() {
-         initDOM();
-         initListeners();
-     }
-
-     function initDOM() {
-         obj.wordsLeftBlock.classList.remove("hidden");
-         obj.teamsScoreBlock.classList.remove("hidden");
-         obj.startGameBlock.classList.remove("hidden");
-         obj.wordsLeftBlock.innerHTML = "<h3>There are " + obj.words.length + " words left. </h3>";
-
-         if (obj.roundGuessedWords.length !== 0) {
-             obj.guessedWordsList.innerHTML = "";
-             obj.roundGuessedWords.forEach(function (element) {
-                 obj.guessedWordsList.innerHTML += "<h3>" + element.word + "</h3>";
-             });
-             obj.guessedWordsBlock.classList.remove("hidden");
-         }
-         else {
-             obj.guessedWordsBlock.classList.add("hidden");
-         }
-     }
-
-     function initListeners() {
-         if (!START_AREA_INITIATED) {
-             obj.startGameButton.addEventListener("click", function () {
-                 proceed();
-             });
-             START_AREA_INITIATED = true;
-         }
-     }
-
-     function proceed() {
-         obj.guessedWordsBlock.classList.add("hidden");
-         obj.startGameBlock.classList.add("hidden");
-         obj.guessedWordsList.innerHTML = "";
-         obj.roundSession();
-     }
-
-     init();
- };
-
- obj.roundSession = function () {
-     var wordsRoundCounter;
-     var lastChange;
-     var lastGuess;
-     var lastSkip;
-     var skipInterval;
-     var int;
-
-     if (!obj.words.length) {
-         obj.gameOver();
-         return;
-     }
-
-     function initLogic() {
-         lastChange = Date.now();
-         lastGuess = 0;
-         lastSkip = 0;
-         wordsRoundCounter = 0;
-         int = setInterval(timer, 100);
-         obj.team = 3 - obj.team;
-         obj.startTime = Date.now() / 1000;
-         obj.roundGuessedWords = [];
-         obj.wordIndex = Math.floor(Math.random() * obj.words.length);
-     }
-
-     function init() {
-         initLogic();
-         initDOM();
-         initListeners();
-     }
-
-     function initDOM() {
-         obj.currentWordBlock.classList.remove("hidden");
-         obj.timerBlock.classList.remove("hidden");
-         obj.guessButton.removeAttribute("disabled");
-         obj.skipButton.removeAttribute("disabled");
-         obj.undoButton.removeAttribute("disabled");
-         obj.currentWord.innerHTML = obj.words[obj.wordIndex].word;
-     }
-
-     var windowListener =  function(e) {
-         if (e.keyCode === 13) { // Enter
-             e.preventDefault();
-             if (!obj.guessButton.getAttribute("disabled"))
-                 obj.guessButton.click();
-         }
-         else if (e.keyCode === 8) { // Backspace
-             e.preventDefault();
-             if (!obj.undoButton.getAttribute("disabled"))
-                 obj.undoButton.click();
-         } else if (e.keyCode === 32) { // Space
-             e.preventDefault();
-             if (!obj.skipButton.getAttribute("disabled"))
-                 obj.skipButton.click();
-         }
-     }
-
-     var guessListener = function () {
-         if (obj.words.length === 0) {
-             return;
-         }
-         obj.words[obj.wordIndex].time += Date.now() - lastChange;
-         lastGuess = Date.now();
-         lastChange = lastGuess;
-         wordsRoundCounter += 1;
-         obj.roundGuessedWords.push(obj.words[obj.wordIndex]);
-         obj.words.splice(obj.wordIndex, 1);
-
-         if (obj.team === 1) {
-             obj.team1Score += 1;
-         } else {
-             obj.team2Score += 1;
-         }
-
-         obj.updateScore();
-         enableSkipButton();
-
-         obj.wordIndex = Math.floor(Math.random() * obj.words.length);
-         if (!obj.words.length) {
-             obj.currentWord.innerHTML = " ";
-         } else {
-             obj.currentWord.innerHTML = obj.words[obj.wordIndex].word;
-         }
-     }
-
-     var skipListener = function () {
-         if (obj.words.length === 0) {
-             return;
-         }
-         obj.words[obj.wordIndex].time += Date.now() - lastChange;
-         var index = Math.floor(Math.random() * obj.words.length);
-         while (index === obj.wordIndex && obj.words.length !== 1) {
-             index = Math.floor(Math.random() * obj.words.length);
-         }
-         obj.wordIndex = index;
-         obj.currentWord.innerHTML = obj.words[obj.wordIndex].word;
-         lastSkip = Date.now();
-         lastChange = lastSkip;
-         disableSkipButton();
-     }
-
-     var undoListener = function () {
-         if (!wordsRoundCounter) {
-             return;
-         }
-         if (obj.words.length !== 0) {
-             obj.words[obj.wordIndex].time += Date.now() - lastChange;
-         }
-         lastChange = Date.now();
-         disableSkipButton();
-         var lastWord = obj.roundGuessedWords[obj.roundGuessedWords.length - 1];
-         wordsRoundCounter -= 1;
-         if (obj.team === 1) {
-             obj.team1Score -= 1;
-         } else {
-             obj.team2Score -= 1;
-         }
-         obj.words.push(lastWord);
-         obj.roundGuessedWords.pop();
-         obj.wordIndex = obj.words.length - 1;
-         obj.currentWord.innerHTML = lastWord.word;
-         obj.updateScore();
-     }
-
-     function initListeners() {
-         window.addEventListener("keydown", windowListener);
-
-         obj.guessButton.addEventListener("click", guessListener);
-
-         obj.skipButton.addEventListener("click", skipListener);
-
-         obj.undoButton.addEventListener("click", undoListener);
-     }
-
-     function proceed() {
-         clearInterval(int);
-         obj.guessButton.removeEventListener("click", endRound);
-         obj.skipButton.removeEventListener("click", endRound);
-         obj.guessButton.removeEventListener("click", guessListener);
-         obj.skipButton.removeEventListener("click", skipListener);
-         obj.undoButton.removeEventListener("click", undoListener);
-         window.removeEventListener("keydown", windowListener);
-         obj.timerBlock.classList.add("hidden");
-         obj.currentWordBlock.classList.add("hidden");
-         obj.roundGuessedWords.forEach(function (word) {
-             obj.listOfWords.push(word);
-         });
-         if (obj.words.length === 0) {
-             obj.gameOver();
-         } else {
-             obj.startArea();
-         }
-     }
-
-     function enableSkipButton() {
-         clearTimeout(skipInterval);
-         obj.skipButton.removeAttribute("disabled");
-     }
-
-     function disableSkipButton() {
-         obj.skipButton.setAttribute("disabled", true);
-         clearTimeout(skipInterval);
-         skipInterval = setTimeout(function () {
-             obj.skipButton.removeAttribute("disabled");
-         }, SKIP_TIME);
-     }
-
-     function timeIsUp() {
-         obj.soundAlert.play();
-         obj.undoButton.classList.add("hidden");
-         obj.guessButton.innerHTML = "Guessed";
-         obj.guessButton.addEventListener("click", endRound);
-         obj.skipButton.innerHTML = "Not guessed";
-         obj.skipButton.addEventListener("click", endRound);
-     }
-
-     function endRound () {
-         obj.undoButton.classList.remove("hidden");
-         obj.guessButton.innerHTML = "Guess";
-         obj.skipButton.innerHTML = "Skip";
-         proceed();
-     }
-
-     function timer() {
-         var currentTime = Date.now() / 1000 - obj.startTime;
-         if (currentTime > MAX_TIME) {
-             if (obj.words.length === 0) {
-                 proceed();
-                 return;
-             }
-             timeIsUp();
-             clearInterval(int);
-         } else {
-             if (obj.words.length === 0 && Date.now() - lastGuess > LAST_WORD_FINISH_DELAY) {
-                 proceed();
-                 return;
-             }
-             obj.currentTime.innerHTML = parseInt(MAX_TIME - currentTime) + "." + parseInt((MAX_TIME - currentTime) * 10 ) % 10 ;
-         }
-     }
-
-     init();
- };
-
- obj.gameOver = function () {
-     var wordsListString = "<h2> Words list </h2>";
-
-     function init() {
-         initLogic();
-         initDOM();
-     }
-
-     function initLogic() {
-         var aux;
-         var i;
-         var j;
-         for (i = 0; i < obj.listOfWords.length; i += 1) {
-             for (j = i + 1; j < obj.listOfWords.length; j += 1) {
-                 if (obj.listOfWords[i].word > obj.listOfWords[j].word) {
-                     aux = obj.listOfWords[i];
-                     obj.listOfWords[i] = obj.listOfWords[j];
-                     obj.listOfWords[j] = aux;
-                 }
-             }
-         }
-         obj.listOfWords.forEach(function (element) {
-             wordsListString += "<h3>" + element.word + " #" + element.user + " time: " + element.time +
-                                " ms</h3>";
-         });
-     }
-
-     function initDOM() {
-         if(obj.team1Score === obj.team2Score) {
-             obj.winnerTeam.innerHTML = "It's a tie!"
-         } else if (obj.team1Score > obj.team2Score) {
-             obj.winnerTeam.innerHTML = obj.team1Name.innerHTML + " has won!";
-         } else {
-             obj.winnerTeam.innerHTML = obj.team2Name.innerHTML + " has won!";
-         }
-
-         obj.allWords.innerHTML = wordsListString;
-         obj.winnerTeamBlock.classList.remove("hidden");
-         obj.allWordsBlock.classList.remove("hidden");
-     }
-
-     init();
- };
-
- obj.init();
- obj.gameParameters();
-</script>
-<style>
-    body {
-    font-family: Avenir;
-    color: rgba(255, 255, 255, 0.8);
-    }
-
-    .hidden {
-    display: none;
-    }
-
-    .btn {
-    user-select: none;
-    font-size: medium;
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px transparent;
-    color: rgba(255, 255, 255, 0.7);
-    padding: 7px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .btn:hover, .btn:active, .btn:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-    }
-
-    input {
-    font-size: 1em;
-    background-color: white;
-    }
-
-    img {
-    top: 0px;
-    left: 0px;
-    }
-
-    #fun-with-words {
-    padding: 5%;
-        margin: 0 auto;
-    }
-
-    input, textarea {
-    transition: all ease 0.2s;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.8);
-    padding: 5px;
-    }
-
-    textarea, input, button {
-    outline: none;
-    }
-
-    input:focus, textarea:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.4);
-    }
-
-    textarea {
-    font-size: 16px;
-    width: 167px;
-    }
-
-    h3 {
-    margin-bottom: 3px;
-    margin-top: 3px;
-    }
-
-    h4 {
-    margin-bottom: 5px;
-    margin-top: 5px;
-    }
-
-    h2 {
-    margin-bottom: 7px;
-    margin-top: 7px;
-    }
-
-    .warning-text {
-    /*color: #ff2b2b;*/
-    font-size: 16px;
-    background-color: rgba(255, 255, 255, 0.2);
-    padding: 3px 10px;
-    border-radius: 6px;
-    margin-bottom: 3px;
-    margin-top: 3px;
-    font-weight: 600;
-    }
-
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    }
-
-    .pull-left {
-    left: 0px;
-    float: left;
-    }
-
-    .pull-right {
-    right: 0px;
-    float: right;
-    }
-
-    .text-center {
-    text-align: center;
-    }
-
-    @media only screen and (max-device-width: 480px) {
-        body {
-            font-size: 2.3em !important;
-        }
-
-        .btn {
-            font-size: 1em;
-            padding: 0.3em 0.7em;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 0.3em;
-            border: 0.1em solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn:hover, .btn:active, .btn:focus {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        input {
-            font-size: 1em;
-        }
-
-        #fun-with-words {
-            padding: 5%;
-        }
-
-        input, textarea {
-            border: 0.1em solid rgba(255, 255, 255, 0.2);
-            border-radius: 0.3em;
-            padding: 0.2em;
-        }
-
-        textarea {
-            font-size: 1em;
-            width: 10em;
-        }
-
-        h3 {
-            margin-bottom: 3px;
-            margin-top: 3px;
-        }
-
-        h4 {
-            margin-bottom: 5px;
-            margin-top: 5px;
-        }
-
-        h2 {
-            margin-bottom: 7px;
-            margin-top: 7px;
-        }
-
-        .warning-text {
-            font-size: 1em;
-            padding: 0.15em 0.4em;
-            border-radius: 0.3em;
-            margin-bottom: 0.15em;
-            margin-top: 0.15em;
-            font-weight: 600;
-        }
-
-        #confirm-block {
-            margin-top: 0.5em;
-        }
-    }
-</style>
+<script type="text/javascript" src="proiect.js"></script>
