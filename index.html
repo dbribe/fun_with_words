@@ -3,6 +3,7 @@
     <title>Fun with words</title>
     <link rel="stylesheet" href="proiect.css"></link>
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <body>
 <img src="proiect.jpeg" style="width: 100%; height: 100%; position:fixed; z-index: -1;">
 <div id="fun-with-words" style="max-width: 700px;">
@@ -61,12 +62,12 @@
             <div id="user-name-warning" class="warning-text hidden">
                 Username can't be blank
             </div>
-            <input spellcheck="false" id="user-name-input">
+            <input spellcheck="false" id="user-name-input" style="width: 195px;">
             <h4>Insert words here:</h4>
             <div id="words-count-warning" class="warning-text hidden">
                 You need to insert 8 words
             </div>
-            <textarea spellcheck="false" style="height:300px" id="add-words-input"></textarea>
+            <textarea spellcheck="false" id="add-words-input"></textarea>
             <div>
                 <button id="add-words-button" class="btn">Add Words</button>
             </div>
@@ -79,6 +80,7 @@
                 <button id="confirm-button" class="btn">Yes</button>
                 <button id="cancel-button" class="btn">No</button>
             </div>
+            <div style="height: 30px; width: 100%;"></div>
         </div>
     </div>
     <div id="team-names-block" class="text-center hidden">
